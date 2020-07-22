@@ -94,7 +94,6 @@ class ModelingPrecheckUI(QtWidgets.QDialog):
 
     @QtCore.Slot()
     def _update_file_selected_lbl(self):
-        #self.obj_selected_lbl.setText(self.obj_lw.currentItem().text())
         pass
 
     def _populate_object_list(self):
@@ -119,7 +118,7 @@ class ModelingPrecheckUI(QtWidgets.QDialog):
 
     @QtCore.Slot()
     def Finalize(self):
-        """increments and saves the dialog"""
+        """finalizes the objects"""
         self.scene.Trifecta()
 
     @QtCore.Slot()
