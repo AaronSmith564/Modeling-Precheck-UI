@@ -1,6 +1,7 @@
 import maya.OpenMayaUI as omui
 from PySide2 import QtWidgets, QtCore
 from shiboken2 import wrapInstance
+import pymel.core as pmc
 
 import ModelingPrecheck
 
@@ -94,7 +95,9 @@ class ModelingPrecheckUI(QtWidgets.QDialog):
 
     @QtCore.Slot()
     def _update_file_selected_lbl(self):
-        pass
+        #self.obj_selected_lbl.setText(self.obj_lw.currentItem().text())
+        Object = self.obj_lw.currentItem().text().split('Shape')
+        pmc.select(Object[0])
 
     def _populate_object_list(self):
         pass
@@ -118,7 +121,7 @@ class ModelingPrecheckUI(QtWidgets.QDialog):
 
     @QtCore.Slot()
     def Finalize(self):
-        """finalizes the objects"""
+        """Finalize the objects"""
         self.scene.Trifecta()
 
     @QtCore.Slot()
