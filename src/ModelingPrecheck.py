@@ -1,9 +1,12 @@
 import logging
 import os
 import maya.cmds as cmds
+import re
 
 import pymel.core as pmc
 from   pymel.core.system import Path
+
+from array import *
 
 from pymel.core.system import versions
 
@@ -97,6 +100,24 @@ class SceneFile(object):
 
 
     def CheckNames(self):
+        count = 0
+        RegPattern = "[A-Z][a-z]+_objShape"
+        ProblemObjects = {}
         ObjectNames = pmc.ls( o = True, g = True)
-        for O in ObjectNames:
-            print(O)
+        for Object in ObjectNames:
+            if not(bool(re.match(RegPattern, str(Object)))):
+                ProblemObjects[count] = Object
+                count = count + 1
+        return ProblemObjects
+
+
+    def FinalSave(self):
+        """Saves the scene file."""
+        try:
+            Path = self.dir + "\\" + self.descriptor + '_Final' + '.' + self.ext
+            pmc.system.saveAs(Path)
+        except RuntimeError:
+            log.warning("Missing directories. creating directories")
+            self.dir.makedirs_p()
+            Path = self.dir + "\\" + self.descriptor + '_Final' + '.' + self.ext
+            pmc.system.saveAs(Path)
