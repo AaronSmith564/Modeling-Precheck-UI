@@ -95,7 +95,6 @@ class ModelingPrecheckUI(QtWidgets.QDialog):
 
     @QtCore.Slot()
     def _update_file_selected_lbl(self):
-        #self.obj_selected_lbl.setText(self.obj_lw.currentItem().text())
         Object = self.obj_lw.currentItem().text().split('Shape')
         pmc.select(Object[0])
 
